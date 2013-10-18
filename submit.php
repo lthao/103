@@ -7,9 +7,45 @@
 
 <body>
 	<div>
+		<?php
+			include("config.php");
+			$name = $_POST["name"];
+			$qnum = $_POST["field_1"];
+
+			$answer_query = "SELECT * FROM answers WHERE qnum='$qnum' ";
+			$answer_query_result = mysql_query($answer_query);
+			$answer_array = mysql_fetch_array($answer_query_result);
+			$correct_answer = $answer_array['answer'];
+
+			$submission = $_POST["field_2"];
+
+			$column_3 = "";
+			$column_4 = "";
+			$column_5 = "";
+			$column_6 = "";
+
+			$insert_query = "INSERT INTO `c_cs147_lao793`.`dill` (`name`, `submission`, `column_3`, `column_4`, `column_5`, `column_6`) 
+			           VALUES ('$name', '$submission', '$column_3', '$column_4', '$column_5', '$column_6') ";
+			$insert_result = mysql_query($insert_query);
+
+			$count_query = "SELECT * FROM dill WHERE name='$name' ";
+			$count = mysql_num_rows(mysql_query($count_query));
+
+		?>
 		<p>
-			Welcome <?php echo $_POST["name"]; ?><br>
-			Your email address is: <?php echo $_POST["email"]; ?>
+			name: <?php echo $name; ?>
+			<br>
+			<br>
+			qnum: <?php echo $qnum; ?>
+			<br>
+			<br>
+			user_answer: <?php echo $submission; ?>
+			<br>
+			<br>
+			correct_answer: <?php echo $correct_answer; ?>
+			<br>
+			<br>
+			num_tries: <?php echo $count; ?><br>
 		</p>
    	</div>
 </body>
